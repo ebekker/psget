@@ -51,7 +51,7 @@ Set-Variable -Name PSGET_PSD1 -Value 'PSD1' -Option Constant -Scope Script
         Local path to the module to install.
 
     .PARAMETER ModuleName
-       In context with -ModuleUrl or -ModulePath it is not always possible to interfere the right ModuleName, eg. the filename is unknown or the zip archive contains multiple modules.
+       In context with -ModuleUrl or -ModulePath it is not always possible to infer the right ModuleName, eg. the filename is unknown or the zip archive contains multiple modules.
 
     .PARAMETER Type
         When ModuleUrl or ModulePath specified, allows specifying type of the package. Can be ZIP or PSM1.
@@ -727,7 +727,7 @@ function Install-ModuleFromDirectory {
         URL to the module to install; Can be direct link to PSM1 file or ZIP file. Can be a shortened link.
 
     .PARAMETER ModuleName
-        It is not always possible to interfere the right ModuleName, eg. the filename is unknown or the zip archive contains multiple modules.
+        It is not always possible to infer the right ModuleName, eg. the filename is unknown or the zip archive contains multiple modules.
 
     .PARAMETER Type
         When ModuleUrl or ModulePath specified, allows specifying type of the package. Can be ZIP or PSM1.
@@ -836,7 +836,7 @@ function Install-ModuleFromWeb {
         Local path to the module to install.
 
     .PARAMETER ModuleName
-        It is not always possible to interfere the right ModuleName, eg. the filename is unknown or the zip archive contains multiple modules.
+        It is not always possible to infer the right ModuleName, eg. the filename is unknown or the zip archive contains multiple modules.
 
     .PARAMETER Type
         When ModuleUrl or ModulePath specified, allows specifying type of the package. Can be ZIP or PSM1.
@@ -1340,7 +1340,7 @@ function Import-ModuleGlobally {
         Download module from URL
 
     .DESCRIPTION
-        Download module from URL and try to interfere unknown parameter.
+        Download module from URL and try to infer unknown parameter.
         If download target is a zip-archive it will be extracted.
 
         Returns a map containing the TempFolderPath, ModuleFolderPath and ModuleName.
@@ -1570,7 +1570,7 @@ function Install-ModuleToDestination {
         trap { Remove-Item -Path $TempFolderPath -Recurse -Force; break }
 
         $InstallWithModuleName = if ($InstallWithModuleName) { $InstallWithModuleName } else { $ModuleName }
-        # Case: no $InstallWithModuleName and module name interfered from install files
+        # Case: no $InstallWithModuleName and module name inferred from install files
         if (Test-ModuleInstalledAndImport -ModuleName:$InstallWithModuleName -Destination:$Destination -Update:$Update -DoNotImport:$DoNotImport -ModuleHash:$ModuleHash) {
             Remove-Item -Path $TempFolderPath -Recurse -Force
             return
